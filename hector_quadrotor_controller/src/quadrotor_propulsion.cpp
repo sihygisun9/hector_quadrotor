@@ -72,7 +72,7 @@ GazeboQuadrotorPropulsion::GazeboQuadrotorPropulsion()
 // Destructor
 GazeboQuadrotorPropulsion::~GazeboQuadrotorPropulsion()
 {
-  event::Events::DisconnectWorldUpdateBegin(updateConnection);
+  event::Events::DisconnectWorldUpdateStart(updateConnection);
   node_handle_->shutdown();
   callback_queue_thread_.join();
   delete node_handle_;
@@ -236,7 +236,7 @@ void GazeboQuadrotorPropulsion::Load(physics::ModelPtr _model, sdf::ElementPtr _
   // New Mechanism for Updating every World Cycle
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
-  updateConnection = event::Events::ConnectWorldUpdateBegin(
+  updateConnection = event::Events::ConnectWorldUpdateStart(
       boost::bind(&GazeboQuadrotorPropulsion::Update, this));
 }
 
@@ -379,7 +379,7 @@ void GazeboQuadrotorPropulsion::Update()
 
   // set force and torque in gazebo
   link->AddRelativeForce(force);
-  link->AddRelativeTorque(torque - link->GetInertial()->GetCoG().Cross(force));
+  link->AddRelativeTorque(torque - link->GetInertial()->GetCoG().GetCrossProd(force));
 
   // publish motor status
   if (motor_status_publisher_ && current_time >= last_motor_status_time_ + control_period_) {
