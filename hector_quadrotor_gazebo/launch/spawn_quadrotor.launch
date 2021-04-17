@@ -7,7 +7,7 @@
    <param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" />
    
    <!-- push robot_description to factory and spawn robot in gazebo -->
-   <node name="spawn_robot" pkg="gazebo" type="spawn_model"
+   <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
    args="-param robot_description
    -urdf
    -z 0.5
@@ -34,6 +34,6 @@
    <!-- node name="hector_pose_estimation" pkg="hector_pose_estimation" type="hector_pose_estimation_node" output="screen"/-->
 
    <arg name="motors" default="robbe_2827-34_epp1045" />
-   <rosparam command="load" ns="gazebo" file="$(find hector_quadrotor_controller)/param/quadrotor_aerodynamics.yaml" />
-   <rosparam command="load" ns="gazebo" file="$(find hector_quadrotor_controller)/param/$(arg motors).yaml" />
+   <rosparam command="load" file="$(find hector_quadrotor_controller)/param/quadrotor_aerodynamics.yaml" />
+   <rosparam command="load" file="$(find hector_quadrotor_controller)/param/$(arg motors).yaml" />
  </launch>
