@@ -14,7 +14,6 @@
 
   <depend package="roscpp"/>
   <depend package="gazebo"/>
-  <depend package="gazebo_ros"/>
   <depend package="hector_gazebo_plugins"/>
 
   <depend package="geometry_msgs"/>
@@ -22,7 +21,7 @@
 
   <export>
     <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib" />
-    <gazebo_ros plugin_path="${prefix}/lib" />
+    <gazebo plugin_path="${prefix}/lib" />
   </export>
 
 </package>
