@@ -8,7 +8,7 @@
    
    <!-- push robot_description to factory and spawn robot in gazebo -->
    <arg name="name" default="quadrotor"/>
-   <node name="spawn_robot" pkg="gazebo" type="spawn_model"
+   <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model"
    args="-param robot_description
    -urdf
    -z 0.5
